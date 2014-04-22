@@ -1,15 +1,22 @@
 package com.episode6.hackit.chop;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
 public final class Chop {
 
   private static final TreeFarm TREE_FARM = new TreeFarm();
+
+  private static Tagger sDefaultTagger = Defaults.TAGGER;
+  private static Formatter sDefaultFormatter = Defaults.FORMATTER;
 
   public enum Level {
     V, D, I, W, E
@@ -66,6 +73,40 @@ public final class Chop {
       String formattedThrowable = formatter.formatThrowable(throwable);
       TREE_FARM.chopLogs(level, tag, formattedThrowable);
     }
+  }
+
+  public static final class Defaults {
+    public static final Tagger TAGGER = new Tagger() {
+
+      private final Pattern ANONYMOUS_CLASS_PATTERN = Pattern.compile("\\$\\d+$");
+
+      @Override
+      public String createTag() {
+        String tag = new Throwable().getStackTrace()[3].getClassName();
+        Matcher m = ANONYMOUS_CLASS_PATTERN.matcher(tag);
+        if (m.find()) {
+          tag = m.replaceAll("");
+        }
+        return tag.substring(tag.lastIndexOf('.') + 1);
+      }
+    };
+
+    public static final Formatter FORMATTER = new Formatter() {
+
+      @Override
+      public String formatLog(String message, Object... args) {
+        return args.length == 0 ? message : String.format(message, args);
+      }
+
+      @Override
+      public String formatThrowable(Throwable throwable) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        throwable.printStackTrace(pw);
+        pw.flush();
+        return sw.toString();
+      }
+    };
   }
 
   /**
