@@ -53,6 +53,46 @@ public final class Chop {
     String formatThrowable(Throwable throwable);
   }
 
+  public static void v(String message, Object... args) {
+    chopLogs(Level.V, sDefaultTagger, sDefaultFormatter, null, message, args);
+  }
+
+  public static void v(Throwable throwable, String message, Object... args) {
+    chopLogs(Level.V, sDefaultTagger, sDefaultFormatter, throwable, message, args);
+  }
+
+  public static void d(String message, Object... args) {
+    chopLogs(Level.D, sDefaultTagger, sDefaultFormatter, null, message, args);
+  }
+
+  public static void d(Throwable throwable, String message, Object... args) {
+    chopLogs(Level.D, sDefaultTagger, sDefaultFormatter, throwable, message, args);
+  }
+
+  public static void i(String message, Object... args) {
+    chopLogs(Level.I, sDefaultTagger, sDefaultFormatter, null, message, args);
+  }
+
+  public static void i(Throwable throwable, String message, Object... args) {
+    chopLogs(Level.I, sDefaultTagger, sDefaultFormatter, throwable, message, args);
+  }
+
+  public static void w(String message, Object... args) {
+    chopLogs(Level.W, sDefaultTagger, sDefaultFormatter, null, message, args);
+  }
+
+  public static void w(Throwable throwable, String message, Object... args) {
+    chopLogs(Level.W, sDefaultTagger, sDefaultFormatter, throwable, message, args);
+  }
+
+  public static void e(String message, Object... args) {
+    chopLogs(Level.E, sDefaultTagger, sDefaultFormatter, null, message, args);
+  }
+
+  public static void e(Throwable throwable, String message, Object... args) {
+    chopLogs(Level.E, sDefaultTagger, sDefaultFormatter, throwable, message, args);
+  }
+
   private static void chopLogs(
       Level level,
       Tagger tagger,
