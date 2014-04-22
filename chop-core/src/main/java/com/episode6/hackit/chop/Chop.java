@@ -15,6 +15,24 @@ public final class Chop {
 
   private static final TreeFarm TREE_FARM = new TreeFarm();
 
+  private static final ThreadLocal<ChoppingToolsAdapter> TOOLS_ADAPTER =
+      new ThreadLocal<ChoppingToolsAdapter>() {
+
+        @Override
+        protected ChoppingToolsAdapter initialValue() {
+          return new ChoppingToolsAdapter();
+        }
+      };
+
+  private static final ThreadLocal<SettableTagger> STRING_TAGGER =
+      new ThreadLocal<SettableTagger>() {
+
+        @Override
+        protected SettableTagger initialValue() {
+          return new SettableTagger();
+        }
+      };
+
   private static Tagger sDefaultTagger = Defaults.TAGGER;
   private static Formatter sDefaultFormatter = Defaults.FORMATTER;
 
@@ -51,6 +69,18 @@ public final class Chop {
   public interface Formatter {
     String formatLog(String message, Object... args);
     String formatThrowable(Throwable throwable);
+  }
+
+  public static ChoppingToolsAdapter withTagger(Tagger tagger) {
+    return TOOLS_ADAPTER.get().setFormatter(sDefaultFormatter).andTagger(tagger);
+  }
+
+  public static ChoppingToolsAdapter withFormatter(Formatter formatter) {
+    return TOOLS_ADAPTER.get().setTagger(sDefaultTagger).andFormatter(formatter);
+  }
+
+  public static ChoppingToolsAdapter withTag(String tag) {
+    return withTagger(STRING_TAGGER.get().setTag(tag));
   }
 
   public static void v(String message, Object... args) {
@@ -147,6 +177,102 @@ public final class Chop {
         return sw.toString();
       }
     };
+  }
+
+  public static final class ChoppingToolsAdapter {
+    private Tagger mTagger;
+    private Formatter mFormatter;
+
+    ChoppingToolsAdapter() {
+      mTagger = sDefaultTagger;
+      mFormatter = sDefaultFormatter;
+    }
+
+    public ChoppingToolsAdapter andTagger(Tagger tagger) {
+      return setTagger(tagger);
+    }
+
+    public ChoppingToolsAdapter andFormatter(Formatter formatter) {
+      return setFormatter(formatter);
+    }
+
+    public void byDefault() {
+
+      // A ThreadLocal SettableTagger would make a pretty lousy default. Don't allow it.
+      if (mTagger instanceof SettableTagger) {
+        throw new IllegalArgumentException(
+            "Cannot Chop.setTag(String).byDefault(). Use Chop.withTagger(Tagger).byDefault() " +
+                "and roll your own Chop.Tagger instead.");
+      }
+
+      sDefaultTagger = mTagger;
+      sDefaultFormatter = mFormatter;
+    }
+
+    public void v(String message, Object... args) {
+      chopLogs(Level.V, mTagger, mFormatter, null, message, args);
+    }
+
+    public void v(Throwable throwable, String message, Object... args) {
+      chopLogs(Level.V, mTagger, mFormatter, throwable, message, args);
+    }
+
+    public void d(String message, Object... args) {
+      chopLogs(Level.D, mTagger, mFormatter, null, message, args);
+    }
+
+    public void d(Throwable throwable, String message, Object... args) {
+      chopLogs(Level.D, mTagger, mFormatter, throwable, message, args);
+    }
+
+    public void i(String message, Object... args) {
+      chopLogs(Level.I, mTagger, mFormatter, null, message, args);
+    }
+
+    public void i(Throwable throwable, String message, Object... args) {
+      chopLogs(Level.I, mTagger, mFormatter, throwable, message, args);
+    }
+
+    public void w(String message, Object... args) {
+      chopLogs(Level.W, mTagger, mFormatter, null, message, args);
+    }
+
+    public void w(Throwable throwable, String message, Object... args) {
+      chopLogs(Level.W, mTagger, mFormatter, throwable, message, args);
+    }
+
+    public void e(String message, Object... args) {
+      chopLogs(Level.E, mTagger, mFormatter, null, message, args);
+    }
+
+    public void e(Throwable throwable, String message, Object... args) {
+      chopLogs(Level.E, mTagger, mFormatter, throwable, message, args);
+    }
+
+    ChoppingToolsAdapter setTagger(Tagger tagger) {
+      mTagger = tagger;
+      return this;
+    }
+
+    ChoppingToolsAdapter setFormatter(Formatter formatter) {
+      mFormatter = formatter;
+      return this;
+    }
+  }
+
+  private static class SettableTagger implements Tagger {
+
+    private String mTag;
+
+    SettableTagger setTag(String tag) {
+      mTag = tag;
+      return this;
+    }
+
+    @Override
+    public String createTag() {
+      return mTag;
+    }
   }
 
   /**
