@@ -71,6 +71,10 @@ public final class Chop {
     String formatThrowable(Throwable throwable);
   }
 
+  public static boolean plantTree(Tree tree) {
+    return TREE_FARM.plantTree(tree);
+  }
+
   public static ChoppingToolsAdapter withTagger(Tagger tagger) {
     return TOOLS_ADAPTER.get().setFormatter(sDefaultFormatter).andTagger(tagger);
   }
