@@ -9,7 +9,7 @@ import java.io.PrintStream;
  */
 public class StdOutTree implements Chop.Tree {
 
-  private static final String LOG_FORMAT = ":%s:%s: %s";
+  private static final String LOG_FORMAT = "::%s::%s::  %s";
 
   public enum OutputType {
     STD_OUT_ONLY,
