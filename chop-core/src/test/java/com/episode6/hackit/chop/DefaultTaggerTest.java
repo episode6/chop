@@ -41,6 +41,6 @@ public class DefaultTaggerTest {
 
   @After
   public void cleanUp() {
-    Chop.TREE_FARM.digUpTree(mTree);
+    ChopInternals.TREE_FARM.digUpTree(mTree);
   }
 }
