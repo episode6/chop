@@ -31,11 +31,7 @@ public class DefaultTaggerTest {
 
     Chop.d("Test Message");
 
-    verify(mTree).chopLog(
-        any(Chop.Level.class),
-        eq(expectedTag),
-        anyString()
-    );
+    verifyExpectedTag(expectedTag);
   }
 
   @Test
@@ -50,15 +46,34 @@ public class DefaultTaggerTest {
       }
     }.run();
 
-    verify(mTree).chopLog(
-        any(Chop.Level.class),
-        eq(expectedTag),
-        anyString()
-    );
+    verifyExpectedTag(expectedTag);
+  }
+
+  @Test
+  public void testInnerClass() {
+    String expectedTag = DefaultTaggerTest.class.getSimpleName() + "$" +
+        InnerTestClass.class.getSimpleName();
+
+    new InnerTestClass().printLog();
+
+    verifyExpectedTag(expectedTag);
   }
 
   @After
   public void cleanUp() {
     ChopInternals.TREE_FARM.digUpTree(mTree);
+  }
+
+  private void verifyExpectedTag(String expectedTag) {
+    verify(mTree).chopLog(
+        any(Chop.Level.class),
+        eq(expectedTag),
+        anyString());
+  }
+
+  private class InnerTestClass {
+    public void printLog() {
+      Chop.d("Test Message");
+    }
   }
 }
