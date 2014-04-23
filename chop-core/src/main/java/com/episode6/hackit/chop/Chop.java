@@ -14,8 +14,8 @@ public final class Chop {
   /**
    * A Tree is a logging "source." That is to say a tree outputs logs somewhere.
    * A tree can support some, all or no Levels of log (although planting a tree that supports no
-   * logs seems pointless. {@link #chopLog(com.episode6.hackit.chop.Chop.Level, String, String)} will only be called if the Tree
-   * returns true in {@link #supportsLevel(com.episode6.hackit.chop.Chop.Level)} for the given level.
+   * logs seems pointless. {@link #chopLog(Chop.Level, String, String)} will only be called if the Tree
+   * returns true in {@link #supportsLevel(Chop.Level)} for the given level.
    *
    * The name Tree comes from Timber's analogy. I'm not sure it fits anymore and might change it
    * (since the responsibility of Trees in this case is a bit different).
@@ -27,7 +27,7 @@ public final class Chop {
 
   /**
    * The Tagger is responsible for creating tags for chopped logs. {@link #createTag()} will only
-   * be called if a Tree (supporting the requested {@link com.episode6.hackit.chop.Chop.Level}) is planted
+   * be called if a Tree (supporting the requested {@link Chop.Level}) is planted
    */
   public interface Tagger {
     String createTag();
