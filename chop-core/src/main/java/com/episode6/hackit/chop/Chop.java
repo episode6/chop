@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 public final class Chop {
 
-  private static final TreeFarm TREE_FARM = new TreeFarm();
+  static final TreeFarm TREE_FARM = new TreeFarm();
 
   private static final ThreadLocal<ChoppingToolsAdapter> TOOLS_ADAPTER =
       new ThreadLocal<ChoppingToolsAdapter>() {
@@ -283,7 +283,7 @@ public final class Chop {
    * The TreeFarm is where the {@link Tree}s are planted. It also keeps track of which
    * {@link Level}s are supported by the planted trees
    */
-  private static final class TreeFarm {
+  static final class TreeFarm {
 
     private final Set<Tree> mTrees;
     private final Map<Level, Boolean> mSupportedLevelMap;
@@ -292,9 +292,7 @@ public final class Chop {
       mTrees = new HashSet<Tree>();
       mSupportedLevelMap = new HashMap<Level, Boolean>();
 
-      for (Level level : Level.values()) {
-        mSupportedLevelMap.put(level, false);
-      }
+      resetLevelMap();
     }
 
     boolean plantTree(Tree tree) {
@@ -317,6 +315,31 @@ public final class Chop {
           tree.chopLog(level, tag, message);
         }
       }
+    }
+
+    /**
+     * Visible for testing
+     * @param tree
+     */
+    void digUpTree(Tree tree) {
+      if (mTrees.remove(tree)) {
+        resetLevelMap();
+      }
+    }
+
+    private void resetLevelMap() {
+      for (Level level : Level.values()) {
+        mSupportedLevelMap.put(level, askAllTreesIsLevelSupported(level));
+      }
+    }
+
+    private boolean askAllTreesIsLevelSupported(Level level) {
+      for (Tree tree : mTrees) {
+        if (tree.supportsLevel(level)) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

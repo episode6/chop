@@ -1,5 +1,6 @@
 package com.episode6.hackit.chop;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +21,13 @@ public class DefaultTaggerTest {
   public void setUp() {
     when(mTree.supportsLevel(any(Chop.Level.class)))
         .thenReturn(true);
+
+    Chop.plantTree(mTree);
   }
 
   @Test
   public void testOuterClass() {
-    Chop.plantTree(mTree);
+
     String expectedTag = DefaultTaggerTest.class.getSimpleName();
 
     Chop.e("Test Message");
@@ -34,5 +37,10 @@ public class DefaultTaggerTest {
         eq(expectedTag),
         anyString()
     );
+  }
+
+  @After
+  public void cleanUp() {
+    Chop.TREE_FARM.digUpTree(mTree);
   }
 }
