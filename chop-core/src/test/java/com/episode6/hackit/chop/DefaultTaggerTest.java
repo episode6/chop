@@ -27,10 +27,28 @@ public class DefaultTaggerTest {
 
   @Test
   public void testOuterClass() {
-
     String expectedTag = DefaultTaggerTest.class.getSimpleName();
 
     Chop.d("Test Message");
+
+    verify(mTree).chopLog(
+        any(Chop.Level.class),
+        eq(expectedTag),
+        anyString()
+    );
+  }
+
+  @Test
+  public void testAnonymousClass() {
+    String expectedTag = DefaultTaggerTest.class.getSimpleName();
+
+    new Runnable() {
+
+      @Override
+      public void run() {
+        Chop.d("Test message");
+      }
+    }.run();
 
     verify(mTree).chopLog(
         any(Chop.Level.class),
