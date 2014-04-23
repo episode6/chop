@@ -30,7 +30,7 @@ public class DefaultTaggerTest {
 
     String expectedTag = DefaultTaggerTest.class.getSimpleName();
 
-    Chop.e("Test Message");
+    Chop.d("Test Message");
 
     verify(mTree).chopLog(
         any(Chop.Level.class),
