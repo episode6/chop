@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests the tag output when using Chop.withTag()
+ * Tests usage of Chop.withTag()
  */
 @RunWith(ChopTestTestRunner.class)
 public class SettableTaggerTest {
