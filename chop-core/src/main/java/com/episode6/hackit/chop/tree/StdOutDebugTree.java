@@ -35,19 +35,17 @@ public class StdOutDebugTree implements Chop.Tree {
   @Override
   public void chopLog(Chop.Level level, String tag, String message) {
     String output = String.format(LOG_FORMAT, level, tag, message);
-    PrintStream printStream;
+    getPrintStreamForLevel(level).println(output);
+  }
+
+  private PrintStream getPrintStreamForLevel(Chop.Level level) {
     switch (mOutputType) {
       case STD_ERR_ONLY:
-        printStream = System.err;
-        break;
+        return System.err;
       case STD_OUT_ONLY:
-        printStream = System.out;
-        break;
+        return System.out;
       default:
-        printStream = level == Chop.Level.E ? System.err : System.out;
-        break;
+        return level == Chop.Level.E ? System.err : System.out;
     }
-
-    printStream.println(output);
   }
 }
