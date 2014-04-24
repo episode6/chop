@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -43,5 +44,17 @@ public class SettableTaggerTest {
         any(Chop.Level.class),
         eq(expectedTag),
         anyString());
+  }
+
+  @Test
+  public void testSettableTaggerAsDefault() {
+    try {
+      Chop.withTag("CustomTag").byDefault();
+    } catch (IllegalArgumentException e) {
+      // pass
+      return;
+    }
+
+    fail("Did not throw exception when trying to set use the SettableTagger by default");
   }
 }
