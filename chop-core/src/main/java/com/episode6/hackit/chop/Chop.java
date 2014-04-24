@@ -47,11 +47,11 @@ public final class Chop {
   }
 
   public static ChoppingToolsAdapter withTagger(Tagger tagger) {
-    return ChopInternals.TOOLS_ADAPTER.get().setFormatter(ChopInternals.sDefaultFormatter).andTagger(tagger);
+    return ChopInternals.TOOLS_ADAPTER.get().withDefaultFormatter().andTagger(tagger);
   }
 
   public static ChoppingToolsAdapter withFormatter(Formatter formatter) {
-    return ChopInternals.TOOLS_ADAPTER.get().setTagger(ChopInternals.sDefaultTagger).andFormatter(formatter);
+    return ChopInternals.TOOLS_ADAPTER.get().withDefaultTagger().andFormatter(formatter);
   }
 
   public static ChoppingToolsAdapter withTag(String tag) {
@@ -142,11 +142,13 @@ public final class Chop {
     }
 
     public ChoppingToolsAdapter andTagger(Tagger tagger) {
-      return setTagger(tagger);
+      mTagger = tagger;
+      return this;
     }
 
     public ChoppingToolsAdapter andFormatter(Formatter formatter) {
-      return setFormatter(formatter);
+      mFormatter = formatter;
+      return this;
     }
 
     public void byDefault() {
@@ -202,13 +204,13 @@ public final class Chop {
       ChopInternals.chopLogs(Level.E, mTagger, mFormatter, throwable, message, args);
     }
 
-    ChoppingToolsAdapter setTagger(Tagger tagger) {
-      mTagger = tagger;
+    ChoppingToolsAdapter withDefaultTagger() {
+      mTagger = ChopInternals.sDefaultTagger;
       return this;
     }
 
-    ChoppingToolsAdapter setFormatter(Formatter formatter) {
-      mFormatter = formatter;
+    ChoppingToolsAdapter withDefaultFormatter() {
+      mFormatter = ChopInternals.sDefaultFormatter;
       return this;
     }
   }
