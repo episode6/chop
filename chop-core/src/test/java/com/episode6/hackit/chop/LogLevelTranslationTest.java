@@ -84,6 +84,46 @@ public class LogLevelTranslationTest {
     verifyLevel(Chop.Level.E);
   }
 
+  @Test
+  public void testAdapterLevelV() {
+    Chop.withTag("TAG").v("Verbose");
+    Chop.withTag("TAG").v(new Throwable(), "Verbose");
+
+    verifyLevel(Chop.Level.V);
+  }
+
+  @Test
+  public void testAdapterLevelD() {
+    Chop.withTag("TAG").d("Debug");
+    Chop.withTag("TAG").d(new Throwable(), "Debug");
+
+    verifyLevel(Chop.Level.D);
+  }
+
+  @Test
+  public void testAdapterLevelI() {
+    Chop.withTag("TAG").i("Info");
+    Chop.withTag("TAG").i(new Throwable(), "Info");
+
+    verifyLevel(Chop.Level.I);
+  }
+
+  @Test
+  public void testAdapterLevelW() {
+    Chop.withTag("TAG").w("Warning");
+    Chop.withTag("TAG").w(new Throwable(), "Warning");
+
+    verifyLevel(Chop.Level.W);
+  }
+
+  @Test
+  public void testAdapterLevelE() {
+    Chop.withTag("TAG").e("Error");
+    Chop.withTag("TAG").e(new Throwable(), "Error");
+
+    verifyLevel(Chop.Level.E);
+  }
+
   /**
    * Verify that supportsLevel and chopLog were called with the provided Chop.Level
    * @param level The level that was supposed to be used
@@ -93,6 +133,4 @@ public class LogLevelTranslationTest {
     verify(mTree, times(3)).chopLog(eq(level), anyString(), anyString());
     verifyNoMoreInteractions(mTree);
   }
-
-
 }
