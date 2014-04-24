@@ -25,6 +25,11 @@ public class DefaultTaggerTest {
     Chop.plantTree(mTree);
   }
 
+  @After
+  public void cleanUp() {
+    ChopInternals.TREE_FARM.digUpTree(mTree);
+  }
+
   @Test
   public void testOuterClass() {
     String expectedTag = DefaultTaggerTest.class.getSimpleName();
@@ -57,11 +62,6 @@ public class DefaultTaggerTest {
     new InnerTestClass().printLog();
 
     verifyExpectedTag(expectedTag);
-  }
-
-  @After
-  public void cleanUp() {
-    ChopInternals.TREE_FARM.digUpTree(mTree);
   }
 
   private void verifyExpectedTag(String expectedTag) {
