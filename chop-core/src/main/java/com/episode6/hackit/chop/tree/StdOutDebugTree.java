@@ -7,7 +7,7 @@ import java.io.PrintStream;
 /**
  * A simple Java Tree that outputs logs to StdOut or StdErr (or both)
  */
-public class StdOutTree implements Chop.Tree {
+public class StdOutDebugTree implements Chop.Tree {
 
   private static final String LOG_FORMAT = "::%s::%s::  %s";
 
@@ -19,11 +19,11 @@ public class StdOutTree implements Chop.Tree {
 
   private final OutputType mOutputType;
 
-  public StdOutTree() {
+  public StdOutDebugTree() {
     this(OutputType.LOGICAL_SEPARATION);
   }
 
-  public StdOutTree(OutputType outputType) {
+  public StdOutDebugTree(OutputType outputType) {
     mOutputType = outputType;
   }
 

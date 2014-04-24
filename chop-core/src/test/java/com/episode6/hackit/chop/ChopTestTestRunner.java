@@ -1,6 +1,6 @@
 package com.episode6.hackit.chop;
 
-import com.episode6.hackit.chop.tree.StdOutTree;
+import com.episode6.hackit.chop.tree.StdOutDebugTree;
 
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
@@ -10,7 +10,7 @@ public class ChopTestTestRunner extends BlockJUnit4ClassRunner {
 
   public ChopTestTestRunner(Class<?> klass) throws InitializationError {
     super(klass);
-    Chop.plantTree(new StdOutTree());
+    Chop.plantTree(new StdOutDebugTree());
   }
 
   @Override
