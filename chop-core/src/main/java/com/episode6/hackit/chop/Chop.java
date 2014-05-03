@@ -46,16 +46,27 @@ public final class Chop {
     return ChopInternals.TREE_FARM.plantTree(tree);
   }
 
-  public static ChoppingToolsAdapter withTagger(Tagger tagger) {
-    return ChopInternals.TOOLS_ADAPTER.get().withDefaultFormatter().andTagger(tagger);
+  public static DefaultableChoppingToolsAdapter withTagger(Tagger tagger) {
+    return ChopInternals.DEFAULTABLE_TOOLS_ADAPTER.get()
+        .withDefaultFormatter()
+        .andTagger(tagger)
+        .cast(DefaultableChoppingToolsAdapter.class);
   }
 
-  public static ChoppingToolsAdapter withFormatter(Formatter formatter) {
-    return ChopInternals.TOOLS_ADAPTER.get().withDefaultTagger().andFormatter(formatter);
+  public static DefaultableChoppingToolsAdapter withFormatter(Formatter formatter) {
+    return ChopInternals.DEFAULTABLE_TOOLS_ADAPTER.get()
+        .withDefaultTagger()
+        .andFormatter(formatter)
+        .cast(DefaultableChoppingToolsAdapter.class);
   }
 
   public static ChoppingToolsAdapter withTag(String tag) {
-    return withTagger(ChopInternals.STRING_TAGGER.get().setTag(tag));
+    ChopInternals.TOOLS_ADAPTER.get()
+        .withDefaultFormatter()
+        .andTagger(
+            ChopInternals.STRING_TAGGER.get()
+            .withTag(tag));
+    return withTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
   }
 
   public static void v(String message, Object... args) {
@@ -132,9 +143,27 @@ public final class Chop {
     };
   }
 
-  public static final class ChoppingToolsAdapter {
-    private Tagger mTagger;
-    private Formatter mFormatter;
+  /**
+   * An implementation of {@link Chop.Tagger} that is settable/mutable
+   */
+  public static class SettableTagger implements Tagger {
+
+    private String mTag;
+
+    SettableTagger withTag(String tag) {
+      mTag = tag;
+      return this;
+    }
+
+    @Override
+    public String createTag() {
+      return mTag;
+    }
+  }
+
+  static class ChoppingToolsAdapter {
+    protected Tagger mTagger;
+    protected Formatter mFormatter;
 
     ChoppingToolsAdapter() {
       mTagger = ChopInternals.sDefaultTagger;
@@ -151,56 +180,43 @@ public final class Chop {
       return this;
     }
 
-    public void byDefault() {
-
-      // A ThreadLocal SettableTagger would make a pretty lousy default. Don't allow it.
-      if (mTagger instanceof ChopInternals.SettableTagger) {
-        throw new IllegalArgumentException(
-            "Cannot Chop.setTag(String).byDefault(). Use Chop.withTagger(Tagger).byDefault() " +
-                "and roll your own Chop.Tagger instead.");
-      }
-
-      ChopInternals.sDefaultTagger = mTagger;
-      ChopInternals.sDefaultFormatter = mFormatter;
-    }
-
-    public void v(String message, Object... args) {
+    public final void v(String message, Object... args) {
       ChopInternals.chopLogs(Level.V, mTagger, mFormatter, null, message, args);
     }
 
-    public void v(Throwable throwable, String message, Object... args) {
+    public final void v(Throwable throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.V, mTagger, mFormatter, throwable, message, args);
     }
 
-    public void d(String message, Object... args) {
+    public final void d(String message, Object... args) {
       ChopInternals.chopLogs(Level.D, mTagger, mFormatter, null, message, args);
     }
 
-    public void d(Throwable throwable, String message, Object... args) {
+    public final void d(Throwable throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.D, mTagger, mFormatter, throwable, message, args);
     }
 
-    public void i(String message, Object... args) {
+    public final void i(String message, Object... args) {
       ChopInternals.chopLogs(Level.I, mTagger, mFormatter, null, message, args);
     }
 
-    public void i(Throwable throwable, String message, Object... args) {
+    public final void i(Throwable throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.I, mTagger, mFormatter, throwable, message, args);
     }
 
-    public void w(String message, Object... args) {
+    public final void w(String message, Object... args) {
       ChopInternals.chopLogs(Level.W, mTagger, mFormatter, null, message, args);
     }
 
-    public void w(Throwable throwable, String message, Object... args) {
+    public final void w(Throwable throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.W, mTagger, mFormatter, throwable, message, args);
     }
 
-    public void e(String message, Object... args) {
+    public final void e(String message, Object... args) {
       ChopInternals.chopLogs(Level.E, mTagger, mFormatter, null, message, args);
     }
 
-    public void e(Throwable throwable, String message, Object... args) {
+    public final void e(Throwable throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.E, mTagger, mFormatter, throwable, message, args);
     }
 
@@ -213,6 +229,22 @@ public final class Chop {
       mFormatter = ChopInternals.sDefaultFormatter;
       return this;
     }
+
+    /**
+     * Internal helper class to cast a this ChoppingToolsAdapter
+     * as one of its subclasses
+     * @return casted instance of this adapter
+     */
+    <T extends ChoppingToolsAdapter> T cast(Class<T> clazz) {
+      return (T)this;
+    }
   }
 
+  static class DefaultableChoppingToolsAdapter extends ChoppingToolsAdapter {
+
+    public void byDefault() {
+      ChopInternals.sDefaultTagger = mTagger;
+      ChopInternals.sDefaultFormatter = mFormatter;
+    }
+  }
 }

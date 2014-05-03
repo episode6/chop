@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 
 final class ChopInternals {
 
-  static final TreeFarm TREE_FARM = new TreeFarm();
   static final ThreadLocal<Chop.ChoppingToolsAdapter> TOOLS_ADAPTER =
       new ThreadLocal<Chop.ChoppingToolsAdapter>() {
 
@@ -18,14 +17,28 @@ final class ChopInternals {
           return new Chop.ChoppingToolsAdapter();
         }
       };
-  static final ThreadLocal<SettableTagger> STRING_TAGGER =
-          new ThreadLocal<SettableTagger>() {
+
+  static final ThreadLocal<Chop.DefaultableChoppingToolsAdapter> DEFAULTABLE_TOOLS_ADAPTER =
+      new ThreadLocal<Chop.DefaultableChoppingToolsAdapter>() {
+
+        @Override
+        protected Chop.DefaultableChoppingToolsAdapter initialValue() {
+          return new Chop.DefaultableChoppingToolsAdapter();
+        }
+      };
+
+
+  static final ThreadLocal<Chop.SettableTagger> STRING_TAGGER =
+          new ThreadLocal<Chop.SettableTagger>() {
 
             @Override
-            protected SettableTagger initialValue() {
-              return new SettableTagger();
+            protected Chop.SettableTagger initialValue() {
+              return new Chop.SettableTagger();
             }
           };
+
+  static final TreeFarm TREE_FARM = new TreeFarm();
+
   static Chop.Tagger sDefaultTagger = Chop.Defaults.TAGGER;
   static Chop.Formatter sDefaultFormatter = Chop.Defaults.FORMATTER;
 
@@ -50,21 +63,6 @@ final class ChopInternals {
               TREE_FARM.chopLogs(level, tag, formattedThrowable);
             }
           }
-
-  static class SettableTagger implements Chop.Tagger {
-
-    private String mTag;
-
-    SettableTagger setTag(String tag) {
-      mTag = tag;
-      return this;
-    }
-
-    @Override
-    public String createTag() {
-      return mTag;
-    }
-  }
 
   /**
    * The TreeFarm is where the {@link Chop.Tree}s are planted. It also keeps track of which
