@@ -161,7 +161,7 @@ public final class Chop {
     }
   }
 
-  static class ChoppingToolsAdapter {
+  public static class ChoppingToolsAdapter {
     protected Tagger mTagger;
     protected Formatter mFormatter;
 
@@ -240,9 +240,19 @@ public final class Chop {
     }
   }
 
-  static class DefaultableChoppingToolsAdapter extends ChoppingToolsAdapter {
+  public static class DefaultableChoppingToolsAdapter extends ChoppingToolsAdapter {
 
-    public void byDefault() {
+    public DefaultableChoppingToolsAdapter andTagger(Tagger tagger) {
+      mTagger = tagger;
+      return this;
+    }
+
+    public DefaultableChoppingToolsAdapter andFormatter(Formatter formatter) {
+      mFormatter = formatter;
+      return this;
+    }
+
+    public final void byDefault() {
       ChopInternals.sDefaultTagger = mTagger;
       ChopInternals.sDefaultFormatter = mFormatter;
     }
