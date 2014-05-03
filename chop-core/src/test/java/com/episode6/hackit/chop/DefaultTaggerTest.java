@@ -64,6 +64,15 @@ public class DefaultTaggerTest {
     verifyExpectedTag(expectedTag);
   }
 
+  @Test
+  public void testWithDefaultableToolsAdapter() {
+    String expectedTag = DefaultTaggerTest.class.getSimpleName();
+
+    Chop.withFormatter(Chop.Defaults.FORMATTER).d("Test Message");
+
+    verifyExpectedTag(expectedTag);
+  }
+
   private void verifyExpectedTag(String expectedTag) {
     verify(mTree).chopLog(
         any(Chop.Level.class),
