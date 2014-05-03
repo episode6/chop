@@ -2,7 +2,13 @@
 
 buildscript {
   repositories {
-    mavenCentral()
+    maven {
+      url = MAIN_REPOSITORY_URL
+      credentials {
+        username = NEXUS_USERNAME
+        password = NEXUS_PASSWORD
+      }
+    }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:0.9.+'
@@ -11,6 +17,12 @@ buildscript {
 
 allprojects {
   repositories {
-    mavenCentral()
+    maven {
+      url = MAIN_REPOSITORY_URL
+      credentials {
+        username = NEXUS_USERNAME
+        password = NEXUS_PASSWORD
+      }
+    }
   }
 }
