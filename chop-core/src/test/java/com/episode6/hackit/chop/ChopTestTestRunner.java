@@ -8,9 +8,11 @@ import org.mockito.MockitoAnnotations;
 
 public class ChopTestTestRunner extends BlockJUnit4ClassRunner {
 
+  private static final StdOutDebugTree DEBUG_CHOP_TREE = new StdOutDebugTree();
+
   public ChopTestTestRunner(Class<?> klass) throws InitializationError {
     super(klass);
-    Chop.plantTree(new StdOutDebugTree());
+    Chop.plantTree(DEBUG_CHOP_TREE);
   }
 
   @Override
