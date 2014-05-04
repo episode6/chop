@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    compile "com.episode6.hackit.chop:chop-core:${VERSION_NAME}"
+    compile "com.episode6.hackit.chop:chop-core:+"
 }
