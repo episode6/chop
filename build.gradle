@@ -3,10 +3,10 @@
 buildscript {
   repositories {
     maven {
-      url = MAIN_REPOSITORY_URL
+      url = LOCAL_MIRROR_REPOSITORY_URL
       credentials {
-        username = NEXUS_USERNAME
-        password = NEXUS_PASSWORD
+        username = LOCAL_REPOSITORY_USERNAME
+        password = LOCAL_REPOSITORY_PASSWORD
       }
     }
   }
@@ -18,10 +18,10 @@ buildscript {
 allprojects {
   repositories {
     maven {
-      url = MAIN_REPOSITORY_URL
+      url = LOCAL_MIRROR_REPOSITORY_URL
       credentials {
-        username = NEXUS_USERNAME
-        password = NEXUS_PASSWORD
+        username = LOCAL_REPOSITORY_USERNAME
+        password = LOCAL_REPOSITORY_PASSWORD
       }
     }
   }
