@@ -1,0 +1,24 @@
+apply plugin: 'android-library'
+apply from: "${rootDir}/deployable_aar.gradle"
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.3"
+
+    defaultConfig {
+        minSdkVersion 1
+        targetSdkVersion 19
+        versionCode = VERSION_CODE.toInteger()
+        versionName = VERSION_NAME
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile "com.episode6.hackit.chop:chop-core:+"
+}

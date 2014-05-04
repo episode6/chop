@@ -1,0 +1,5 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+$SCRIPT_DIR/gradlew -p chop-core clean build uploadArchives && $SCRIPT_DIR/gradlew -p chop-android clean build uploadArchives
