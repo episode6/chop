@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile project(":chop-core")
+    compile "com.episode6.hackit.chop:chop-core:${VERSION_NAME}"
 }
 
 apply from: "${rootDir}/deployable_aar.gradle"
