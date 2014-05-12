@@ -23,19 +23,19 @@ def isReleaseBuild() {
 }
 
 def getReleaseRepositoryUrl() {
-  return LOCAL_RELEASE_REPOSITORY_URL
+  return NEXUS_RELEASE_REPOSITORY_URL
 }
 
 def getSnapshotRepositoryUrl() {
-  return LOCAL_SNAPSHOT_REPOSITORY_URL
+  return NEXUS_SNAPSHOT_REPOSITORY_URL
 }
 
 def getRepositoryUsername() {
-  return LOCAL_REPOSITORY_USERNAME
+  return NEXUS_USERNAME
 }
 
 def getRepositoryPassword() {
-  return LOCAL_REPOSITORY_PASSWORD
+  return NEXUS_PASSWORD
 }
 
 afterEvaluate { project ->
