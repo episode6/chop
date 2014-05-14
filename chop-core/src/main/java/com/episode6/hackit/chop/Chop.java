@@ -66,6 +66,10 @@ public final class Chop {
         .andTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
   }
 
+  public static ChoppingToolsAdapter withTag(Class<?> classTag) {
+    return withTag(classTag.getSimpleName());
+  }
+
   public static void v(String message, Object... args) {
     ChopInternals.chopLogs(Level.V, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
