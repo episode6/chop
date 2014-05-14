@@ -56,11 +56,10 @@ final class ChopInternals {
 
     String tag = tagger.createTag();
     String formattedMessage = formatter.formatLog(message, args);
-    TREE_FARM.chopLogs(level, tag, formattedMessage);
-
-    if (throwable != null) {
-      String formattedThrowable = formatter.formatThrowable(throwable);
-      TREE_FARM.chopLogs(level, tag, formattedThrowable);
+    if (throwable == null) {
+      TREE_FARM.chopLogs(level, tag, formattedMessage);
+    } else {
+      TREE_FARM.chopLogs(level, tag, formattedMessage, formatter.formatThrowable(throwable));
     }
   }
 
@@ -94,10 +93,14 @@ final class ChopInternals {
       return mSupportedLevelMap.get(level);
     }
 
-    void chopLogs(Chop.Level level, String tag, String message) {
+    void chopLogs(Chop.Level level, String tag, String... messages) {
       for (Chop.Tree tree : mTrees) {
         if (tree.supportsLevel(level)) {
-          tree.chopLog(level, tag, message);
+          for (String msg : messages) {
+            if (msg != null) {
+              tree.chopLog(level, tag, msg);
+            }
+          }
         }
       }
     }
