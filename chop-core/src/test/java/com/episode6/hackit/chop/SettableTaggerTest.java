@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -43,5 +44,19 @@ public class SettableTaggerTest {
         any(Chop.Level.class),
         eq(expectedTag),
         anyString());
+  }
+
+  @Test
+  public void testImpossibleDefault() {
+    Chop.ChoppingToolsAdapter adapter = Chop.withTag("testTag");
+
+    try {
+      Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
+      defaultableAdapter.byDefault();
+    } catch (ClassCastException e) {
+      // Success
+      return;
+    }
+    fail("Expected a ClassCastException");
   }
 }
