@@ -29,13 +29,13 @@ final class ChopInternals {
 
 
   static final ThreadLocal<Chop.SettableTagger> STRING_TAGGER =
-          new ThreadLocal<Chop.SettableTagger>() {
+      new ThreadLocal<Chop.SettableTagger>() {
 
-            @Override
-            protected Chop.SettableTagger initialValue() {
-              return new Chop.SettableTagger();
-            }
-          };
+        @Override
+        protected Chop.SettableTagger initialValue() {
+          return new Chop.SettableTagger();
+        }
+      };
 
   static final TreeFarm TREE_FARM = new TreeFarm();
 
@@ -50,19 +50,19 @@ final class ChopInternals {
       String message,
       Object... args) {
 
-            if (!TREE_FARM.isLogLevelSupported(level)) {
-              return;
-            }
+    if (!TREE_FARM.isLogLevelSupported(level)) {
+      return;
+    }
 
-            String tag = tagger.createTag();
-            String formattedMessage = formatter.formatLog(message, args);
-            TREE_FARM.chopLogs(level, tag, formattedMessage);
+    String tag = tagger.createTag();
+    String formattedMessage = formatter.formatLog(message, args);
+    TREE_FARM.chopLogs(level, tag, formattedMessage);
 
-            if (throwable != null) {
-              String formattedThrowable = formatter.formatThrowable(throwable);
-              TREE_FARM.chopLogs(level, tag, formattedThrowable);
-            }
-          }
+    if (throwable != null) {
+      String formattedThrowable = formatter.formatThrowable(throwable);
+      TREE_FARM.chopLogs(level, tag, formattedThrowable);
+    }
+  }
 
   /**
    * The TreeFarm is where the {@link Chop.Tree}s are planted. It also keeps track of which

@@ -63,9 +63,7 @@ public final class Chop {
   public static ChoppingToolsAdapter withTag(String tag) {
     ChopInternals.TOOLS_ADAPTER.get()
         .withDefaultFormatter()
-        .andTagger(
-            ChopInternals.STRING_TAGGER.get()
-            .withTag(tag));
+        .andTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
     return withTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
   }
 
