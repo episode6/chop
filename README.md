@@ -12,6 +12,7 @@ This should feel very familiar if you've used [Timber](https://github.com/JakeWh
 
 Plant a `Chop.Tree` as early as possible in (the debug build of) your application...
 ```java
+// Android example
 public MyApplication extends Application {
   @Override
   public void onCreate() {
@@ -21,7 +22,7 @@ public MyApplication extends Application {
 }
 ```
 
-Log with Chop...
+Chop logs...
 ```java
 // simple log (tags are auto-created based on class name)
 Chop.v("My Log");
@@ -37,6 +38,9 @@ Chop.w(myThrowable, "My Formatted Log: %s, %d", myString, myInt);
 
 // custom tags
 Chop.withTag("CUSTOMTAG").i("My Log With Custom Tag");
+
+// refactor-friendly custom tags
+Chop.withTag(MyClass.class).w("My Class-Tagged Log");
 ```
 
 ##What makes it Special?
