@@ -47,8 +47,36 @@ public class SettableTaggerTest {
   }
 
   @Test
+  public void testSettableTaggerClass() {
+    Class<?> tag = SettableTaggerTest.class;
+    String expectedTag = tag.getSimpleName();
+
+    Chop.withTag(tag).d("Test message");
+
+    verify(mTree).chopLog(
+        any(Chop.Level.class),
+        eq(expectedTag),
+        anyString());
+  }
+
+  @Test
   public void testImpossibleDefault() {
     Chop.ChoppingToolsAdapter adapter = Chop.withTag("testTag");
+
+    try {
+      Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
+      defaultableAdapter.byDefault();
+    } catch (ClassCastException e) {
+      // Success
+      return;
+    }
+    fail("Expected a ClassCastException");
+  }
+
+  @Test
+  public void testImpossibleDefaultClass() {
+    Class<?> tag = SettableTaggerTest.class;
+    Chop.ChoppingToolsAdapter adapter = Chop.withTag(tag);
 
     try {
       Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
