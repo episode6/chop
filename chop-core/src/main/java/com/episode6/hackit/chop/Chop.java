@@ -61,12 +61,13 @@ public final class Chop {
   }
 
   public static ChoppingToolsAdapter withTag(String tag) {
-    ChopInternals.TOOLS_ADAPTER.get()
+    return ChopInternals.TOOLS_ADAPTER.get()
         .withDefaultFormatter()
-        .andTagger(
-            ChopInternals.STRING_TAGGER.get()
-            .withTag(tag));
-    return withTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
+        .andTagger(ChopInternals.STRING_TAGGER.get().withTag(tag));
+  }
+
+  public static ChoppingToolsAdapter withTag(Class<?> classTag) {
+    return withTag(classTag.getSimpleName());
   }
 
   public static void v(String message, Object... args) {
@@ -235,6 +236,7 @@ public final class Chop {
      * as one of its subclasses
      * @return casted instance of this adapter
      */
+    @SuppressWarnings("unchecked")
     <T extends ChoppingToolsAdapter> T cast(Class<T> clazz) {
       return (T)this;
     }

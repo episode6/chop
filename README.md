@@ -4,14 +4,15 @@ Chop
 An easy and efficient logging library for Java & Android (inspired by [JakeWharton's Timber](https://github.com/JakeWharton/timber))
 
 ##How do I set it up?
-- Add maven/gradle dependency on `com.episode6.hackit.chop:chop-core:0.1.3`
-- If you're building an android project, also add `com.episode6.hackit.chop:chop-android:0.1.3`
+- Add maven/gradle dependency on `com.episode6.hackit.chop:chop-core:0.1.4`
+- If you're building an android project, also add `com.episode6.hackit.chop:chop-android:0.1.4`
 
 ##How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)
 
 Plant a `Chop.Tree` as early as possible in (the debug build of) your application...
 ```java
+// Android example
 public MyApplication extends Application {
   @Override
   public void onCreate() {
@@ -21,7 +22,7 @@ public MyApplication extends Application {
 }
 ```
 
-Log with Chop...
+Chop logs...
 ```java
 // simple log (tags are auto-created based on class name)
 Chop.v("My Log");
@@ -37,6 +38,9 @@ Chop.w(myThrowable, "My Formatted Log: %s, %d", myString, myInt);
 
 // custom tags
 Chop.withTag("CUSTOMTAG").i("My Log With Custom Tag");
+
+// refactor-friendly custom tags
+Chop.withTag(MyClass.class).w("My Class-Tagged Log");
 ```
 
 ##What makes it Special?

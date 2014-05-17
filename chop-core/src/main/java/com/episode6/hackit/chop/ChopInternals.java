@@ -29,13 +29,13 @@ final class ChopInternals {
 
 
   static final ThreadLocal<Chop.SettableTagger> STRING_TAGGER =
-          new ThreadLocal<Chop.SettableTagger>() {
+      new ThreadLocal<Chop.SettableTagger>() {
 
-            @Override
-            protected Chop.SettableTagger initialValue() {
-              return new Chop.SettableTagger();
-            }
-          };
+        @Override
+        protected Chop.SettableTagger initialValue() {
+          return new Chop.SettableTagger();
+        }
+      };
 
   static final TreeFarm TREE_FARM = new TreeFarm();
 
@@ -50,19 +50,18 @@ final class ChopInternals {
       String message,
       Object... args) {
 
-            if (!TREE_FARM.isLogLevelSupported(level)) {
-              return;
-            }
+    if (!TREE_FARM.isLogLevelSupported(level)) {
+      return;
+    }
 
-            String tag = tagger.createTag();
-            String formattedMessage = formatter.formatLog(message, args);
-            TREE_FARM.chopLogs(level, tag, formattedMessage);
-
-            if (throwable != null) {
-              String formattedThrowable = formatter.formatThrowable(throwable);
-              TREE_FARM.chopLogs(level, tag, formattedThrowable);
-            }
-          }
+    String tag = tagger.createTag();
+    String formattedMessage = formatter.formatLog(message, args);
+    if (throwable == null) {
+      TREE_FARM.chopLogs(level, tag, formattedMessage);
+    } else {
+      TREE_FARM.chopLogs(level, tag, formattedMessage, formatter.formatThrowable(throwable));
+    }
+  }
 
   /**
    * The TreeFarm is where the {@link Chop.Tree}s are planted. It also keeps track of which
@@ -94,10 +93,14 @@ final class ChopInternals {
       return mSupportedLevelMap.get(level);
     }
 
-    void chopLogs(Chop.Level level, String tag, String message) {
+    void chopLogs(Chop.Level level, String tag, String... messages) {
       for (Chop.Tree tree : mTrees) {
         if (tree.supportsLevel(level)) {
-          tree.chopLog(level, tag, message);
+          for (String msg : messages) {
+            if (msg != null) {
+              tree.chopLog(level, tag, msg);
+            }
+          }
         }
       }
     }

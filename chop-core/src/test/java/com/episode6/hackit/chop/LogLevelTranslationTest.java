@@ -129,7 +129,7 @@ public class LogLevelTranslationTest {
    * @param level The level that was supposed to be used
    */
   private void verifyLevel(Chop.Level level) {
-    verify(mTree, times(3)).supportsLevel(level);
+    verify(mTree, times(2)).supportsLevel(level);
     verify(mTree, times(3)).chopLog(eq(level), anyString(), anyString());
     verifyNoMoreInteractions(mTree);
   }
