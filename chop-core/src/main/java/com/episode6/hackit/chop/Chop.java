@@ -236,6 +236,7 @@ public final class Chop {
      * as one of its subclasses
      * @return casted instance of this adapter
      */
+    @SuppressWarnings("unchecked")
     <T extends ChoppingToolsAdapter> T cast(Class<T> clazz) {
       return (T)this;
     }
