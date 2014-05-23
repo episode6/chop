@@ -11,6 +11,7 @@ android {
         versionCode = VERSION_CODE.toInteger()
         versionName = VERSION_NAME
     }
+    
     buildTypes {
         release {
             runProguard false
