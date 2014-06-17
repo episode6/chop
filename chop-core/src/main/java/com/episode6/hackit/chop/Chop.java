@@ -139,7 +139,13 @@ public final class Chop {
         PrintWriter pw = new PrintWriter(sw);
         throwable.printStackTrace(pw);
         pw.flush();
-        return sw.toString();
+        String result = sw.toString();
+
+        Throwable cause = throwable.getCause();
+        if (cause != null) {
+          return result + "\nCaused by: " + formatThrowable(cause);
+        }
+        return result;
       }
     };
   }
