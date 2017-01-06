@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 apply from: "${rootDir}/deployable_aar.gradle"
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 android {
   compileSdkVersion 19
   buildToolsVersion "25.0.2"
