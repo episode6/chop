@@ -34,7 +34,7 @@ public final class Chop {
   }
 
   /**
-   * The Formatter is responsible for converting message/object combos & Throwables into Strings
+   * The Formatter is responsible for converting message/object combos and Throwables into Strings
    * than can be printed by the {@link Tree}s
    */
   public interface Formatter {
