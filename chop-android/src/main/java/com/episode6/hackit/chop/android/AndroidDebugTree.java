@@ -4,7 +4,19 @@ import android.util.Log;
 
 import com.episode6.hackit.chop.Chop;
 
+import javax.annotation.Nullable;
+
 public class AndroidDebugTree implements Chop.Tree {
+
+  private final @Nullable String mTagPrefix;
+
+  public AndroidDebugTree() {
+    this(null);
+  }
+
+  public AndroidDebugTree(String tagPrefix) {
+    mTagPrefix = tagPrefix;
+  }
 
   @Override
   public boolean supportsLevel(Chop.Level level) {
@@ -13,21 +25,22 @@ public class AndroidDebugTree implements Chop.Tree {
 
   @Override
   public void chopLog(Chop.Level level, String tag, String message) {
+    final String formattedTag = mTagPrefix == null ? tag : mTagPrefix.concat(tag);
     switch (level) {
       case V:
-        Log.v(tag, message);
+        Log.v(formattedTag, message);
         break;
       case D:
-        Log.d(tag, message);
+        Log.d(formattedTag, message);
         break;
       case I:
-        Log.i(tag, message);
+        Log.i(formattedTag, message);
         break;
       case W:
-        Log.w(tag, message);
+        Log.w(formattedTag, message);
         break;
       case E:
-        Log.e(tag, message);
+        Log.e(formattedTag, message);
         break;
     }
   }
