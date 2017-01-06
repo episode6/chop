@@ -4,8 +4,8 @@ Chop
 An easy and efficient logging library for Java & Android (inspired by [JakeWharton's Timber](https://github.com/JakeWharton/timber))
 
 ##How do I set it up?
-- Add maven/gradle dependency on `com.episode6.hackit.chop:chop-core:0.1.4`
-- If you're building an android project, also add `com.episode6.hackit.chop:chop-android:0.1.4`
+- Add maven/gradle dependency on `com.episode6.hackit.chop:chop-core:0.1.7`
+- If you're building an android project, also add `com.episode6.hackit.chop:chop-android:0.1.7`
 
 ##How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)

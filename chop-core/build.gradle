@@ -1,6 +1,9 @@
 apply plugin: 'java'
 apply from: "${rootDir}/deployable_jar.gradle"
 
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 dependencies {
   compile('net.sourceforge.findbugs:jsr305:1.3.7')
   testCompile('junit:junit:4.11')
