@@ -1,9 +1,9 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply from: "${rootDir}/deployable_aar.gradle"
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 1
@@ -14,7 +14,7 @@ android {
     
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
