@@ -2,27 +2,15 @@
 
 buildscript {
   repositories {
-    maven {
-      url = LOCAL_MIRROR_REPOSITORY_URL
-      credentials {
-        username = LOCAL_REPOSITORY_USERNAME
-        password = LOCAL_REPOSITORY_PASSWORD
-      }
-    }
+    jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.+'
+    classpath 'com.android.tools.build:gradle:2.1.0'
   }
 }
 
 allprojects {
   repositories {
-    maven {
-      url = LOCAL_MIRROR_REPOSITORY_URL
-      credentials {
-        username = LOCAL_REPOSITORY_USERNAME
-        password = LOCAL_REPOSITORY_PASSWORD
-      }
-    }
+    jcenter()
   }
 }
