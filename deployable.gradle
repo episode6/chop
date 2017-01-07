@@ -44,10 +44,6 @@ afterEvaluate { project ->
       mavenDeployer {
         beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        pom.groupId = GROUP
-        pom.artifactId = POM_ARTIFACT_ID
-        pom.version = VERSION_NAME
-
         repository(url: getReleaseRepositoryUrl()) {
           authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
         }
@@ -79,15 +75,6 @@ afterEvaluate { project ->
             developer {
               id POM_DEVELOPER_ID
               name POM_DEVELOPER_NAME
-            }
-          }
-        }
-
-        pom.withXml {
-          asNode().dependencies.'*'.findAll().each {
-            if (it.groupId.text() == 'chop' && it.version.text() == 'unspecified') {
-              it.groupId*.value = GROUP
-              it.version*.value = VERSION_NAME
             }
           }
         }
