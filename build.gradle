@@ -3,11 +3,13 @@
 buildscript {
   repositories {
     jcenter()
-    flatDir dirs: "../deployable/build/libs"
+    maven {
+      url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.2.3'
-    classpath 'com.episode6.hackit.deployable:deployable:+'
+    classpath 'com.episode6.hackit.deployable:deployable:0.0.1-SNAPSHOT'
   }
 }
 
