@@ -3,9 +3,11 @@
 buildscript {
   repositories {
     jcenter()
+    flatDir dirs: "../deployable/build/libs"
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.episode6.hackit.deployable:deployable:+'
   }
 }
 
@@ -14,6 +16,6 @@ allprojects {
     jcenter()
   }
 
-  group = GROUP
-  version = VERSION_NAME
+  group = "com.episode6.hackit.chop"
+  version = "0.1.7.2-SNAPSHOT"
 }
