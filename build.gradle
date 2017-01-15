@@ -9,7 +9,7 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.2.3'
-    classpath 'com.episode6.hackit.deployable:deployable:0.0.1-SNAPSHOT'
+    classpath 'com.episode6.hackit.deployable:deployable:0.1-SNAPSHOT'
   }
 }
 
