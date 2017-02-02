@@ -16,4 +16,13 @@ class GroovyTestUtil {
       Chop.e(testMessage)
     }
   }
+
+  static Runnable getLogRunnable(final String testMessage) {
+    return new Runnable() {
+      @Override
+      void run() {
+        Chop.e(testMessage)
+      }
+    }
+  }
 }

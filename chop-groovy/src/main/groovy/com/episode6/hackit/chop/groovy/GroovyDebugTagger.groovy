@@ -21,25 +21,13 @@ class GroovyDebugTagger implements Chop.Tagger {
   ]
 
   private final Pattern ANONYMOUS_CLASS_PATTERN = Pattern.compile(/\$\d+$/);
+  private final Pattern CLOSURE_PATTERN = Pattern.compile(/\$\_\w+\_closure\d+$/);
 
   @Override
-  public String createTag() {
-    println "starting test\n\n"
-    Throwable t = new Throwable()
-    t.printStackTrace()
-
-    StackTraceElement elm = t.stackTrace.find {
-      boolean shoudlSkip = isSystemCallsite(it)
-      return !shoudlSkip
-    }
-    println "found elm ${elm}"
-
-
-    String tag = elm.className
-    Matcher m = ANONYMOUS_CLASS_PATTERN.matcher(tag);
-    if (m.find()) {
-      tag = m.replaceAll("");
-    }
+  String createTag() {
+    String tag = new Throwable().stackTrace.find {!isSystemCallsite(it)}.className
+    tag = applyPattern(tag, ANONYMOUS_CLASS_PATTERN)
+    tag = applyPattern(tag, CLOSURE_PATTERN)
     return tag.substring(tag.lastIndexOf('.') + 1);
   }
 
@@ -51,5 +39,13 @@ class GroovyDebugTagger implements Chop.Tagger {
       }
     }
     return false
+  }
+
+  private static String applyPattern(String tag, Pattern pattern) {
+    Matcher m = pattern.matcher(tag);
+    if (m.find()) {
+      return m.replaceAll("");
+    }
+    return tag
   }
 }

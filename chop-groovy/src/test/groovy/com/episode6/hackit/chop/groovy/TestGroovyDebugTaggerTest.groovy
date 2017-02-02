@@ -47,7 +47,15 @@ class TestGroovyDebugTaggerTest extends Specification {
     GroovyTestUtil.getLogClosure("test message").call()
 
     then:
-    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil\$_getLogClosure_closure1", "test message")
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil", "test message")
+  }
+
+  def "test called from runnable in diff file"() {
+    when:
+    GroovyTestUtil.getLogRunnable("test message").run()
+
+    then:
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil", "test message")
   }
 
   private void log(String string) {
