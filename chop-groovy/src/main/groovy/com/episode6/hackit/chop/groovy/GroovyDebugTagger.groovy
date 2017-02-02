@@ -32,13 +32,7 @@ class GroovyDebugTagger implements Chop.Tagger {
   }
 
   private static boolean isSystemCallsite(StackTraceElement element) {
-    for (String systemCallsite : SYSTEM_CALLSITES) {
-      if (element.className.startsWith(systemCallsite)) {
-        println "${element.className} starts with ${systemCallsite}"
-        return true
-      }
-    }
-    return false
+    return SYSTEM_CALLSITES.find {element.className.startsWith(it)} != null
   }
 
   private static String applyPattern(String tag, Pattern pattern) {
