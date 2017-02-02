@@ -74,7 +74,7 @@ public final class Chop {
     ChopInternals.chopLogs(Level.V, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
 
-  public static Throwable v(Throwable throwable, String message, Object... args) {
+  public static <T extends Throwable> T v(T throwable, String message, Object... args) {
     ChopInternals.chopLogs(Level.V, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, throwable, message, args);
     return throwable;
   }
@@ -83,7 +83,7 @@ public final class Chop {
     ChopInternals.chopLogs(Level.D, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
 
-  public static Throwable d(Throwable throwable, String message, Object... args) {
+  public static <T extends Throwable> T d(T throwable, String message, Object... args) {
     ChopInternals.chopLogs(Level.D, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, throwable, message, args);
     return throwable;
   }
@@ -92,7 +92,7 @@ public final class Chop {
     ChopInternals.chopLogs(Level.I, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
 
-  public static Throwable i(Throwable throwable, String message, Object... args) {
+  public static <T extends Throwable> T i(T throwable, String message, Object... args) {
     ChopInternals.chopLogs(Level.I, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, throwable, message, args);
     return throwable;
   }
@@ -101,7 +101,7 @@ public final class Chop {
     ChopInternals.chopLogs(Level.W, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
 
-  public static Throwable w(Throwable throwable, String message, Object... args) {
+  public static <T extends Throwable> T w(T throwable, String message, Object... args) {
     ChopInternals.chopLogs(Level.W, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, throwable, message, args);
     return throwable;
   }
@@ -110,7 +110,7 @@ public final class Chop {
     ChopInternals.chopLogs(Level.E, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, null, message, args);
   }
 
-  public static Throwable e(Throwable throwable, String message, Object... args) {
+  public static <T extends Throwable> T e(T throwable, String message, Object... args) {
     ChopInternals.chopLogs(Level.E, ChopInternals.sDefaultTagger, ChopInternals.sDefaultFormatter, throwable, message, args);
     return throwable;
   }
@@ -190,7 +190,7 @@ public final class Chop {
       ChopInternals.chopLogs(Level.V, mTagger, mFormatter, null, message, args);
     }
 
-    public final Throwable v(Throwable throwable, String message, Object... args) {
+    public final <T extends Throwable> T v(T throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.V, mTagger, mFormatter, throwable, message, args);
       return throwable;
     }
@@ -199,7 +199,7 @@ public final class Chop {
       ChopInternals.chopLogs(Level.D, mTagger, mFormatter, null, message, args);
     }
 
-    public final Throwable d(Throwable throwable, String message, Object... args) {
+    public final <T extends Throwable> T d(T throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.D, mTagger, mFormatter, throwable, message, args);
       return throwable;
     }
@@ -208,7 +208,7 @@ public final class Chop {
       ChopInternals.chopLogs(Level.I, mTagger, mFormatter, null, message, args);
     }
 
-    public final Throwable i(Throwable throwable, String message, Object... args) {
+    public final <T extends Throwable> T i(T throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.I, mTagger, mFormatter, throwable, message, args);
       return throwable;
     }
@@ -217,7 +217,7 @@ public final class Chop {
       ChopInternals.chopLogs(Level.W, mTagger, mFormatter, null, message, args);
     }
 
-    public final Throwable w(Throwable throwable, String message, Object... args) {
+    public final <T extends Throwable> T w(T throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.W, mTagger, mFormatter, throwable, message, args);
       return throwable;
     }
@@ -226,7 +226,7 @@ public final class Chop {
       ChopInternals.chopLogs(Level.E, mTagger, mFormatter, null, message, args);
     }
 
-    public final Throwable e(Throwable throwable, String message, Object... args) {
+    public final <T extends Throwable> T e(T throwable, String message, Object... args) {
       ChopInternals.chopLogs(Level.E, mTagger, mFormatter, throwable, message, args);
       return throwable;
     }
