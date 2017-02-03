@@ -29,7 +29,7 @@ class GroovyDebugTagger implements Chop.Tagger {
 
   @Override
   String createTag() {
-    StackTraceElement element = new Throwable().stackTrace.find {!isSystemCallsite(it)}
+    StackTraceElement element = findFirstNonSystemElement(new Throwable())
     String tag = element.className
     tag = applyPattern(tag, ANONYMOUS_CLASS_PATTERN)
     tag = applyPattern(tag, CLOSURE_PATTERN)
@@ -37,6 +37,21 @@ class GroovyDebugTagger implements Chop.Tagger {
         CLASS_LINE_FORMAT,
         tag.substring(tag.lastIndexOf('.') + 1),
         element.lineNumber)
+  }
+
+  private static StackTraceElement findFirstNonSystemElement(Throwable t) {
+    println "stack trace has ${t.stackTrace.length} elements"
+    // All the groovy stack traces I've seen have the appropriate line at least 19 entries down (and have ~90 entries)
+    // I'm too much of a wuss to start that high up, so this fuzzy logic is meant to ensure we don't accidentally
+    // skip the important line in smaller stack traces but hopefully cut down on the big-O of this method for larger
+    // stack traces that we're more likely to get
+    int startIndex = t.stackTrace.length < 50 ? 3 : 15; // java traces have the important line at entry 3,
+                                                        // so start there for smaller traces
+    for (int i = startIndex; i < t.stackTrace.length; i++) {
+      if (!isSystemCallsite(t.stackTrace[i])) {
+        return t.stackTrace[i]
+      }
+    }
   }
 
   private static boolean isSystemCallsite(StackTraceElement element) {
