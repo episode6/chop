@@ -25,4 +25,12 @@ class GroovyTestUtil {
       }
     }
   }
+
+  static Closure<Closure> getDoubleLogClosure(String testMessage) {
+    return {
+      return {
+        Chop.e(testMessage)
+      }
+    }
+  }
 }

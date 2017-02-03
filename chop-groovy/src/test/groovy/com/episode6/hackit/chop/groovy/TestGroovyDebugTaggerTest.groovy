@@ -50,5 +50,12 @@ class TestGroovyDebugTaggerTest extends Specification {
     1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil:24", "test message")
   }
 
+  def "test called from double closure in diff file"() {
+    when:
+    GroovyTestUtil.getDoubleLogClosure("test message").call().call()
+
+    then:
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil:32", "test message")
+  }
 
 }

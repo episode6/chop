@@ -24,7 +24,7 @@ class GroovyDebugTagger implements Chop.Tagger {
 
   private final String CLASS_LINE_FORMAT = "%s:%d";
   private final Pattern ANONYMOUS_CLASS_PATTERN = Pattern.compile(/\$\d+$/);
-  private final Pattern CLOSURE_PATTERN = Pattern.compile(/\$\_\w+\_closure\d+$/);
+  private final Pattern CLOSURE_PATTERN = Pattern.compile(/\$\_[\w\$]+\_closure\d+$/);
 
   @Override
   String createTag() {
