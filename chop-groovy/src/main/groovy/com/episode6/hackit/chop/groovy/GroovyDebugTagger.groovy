@@ -6,7 +6,10 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
- * A tagger meant for use in groovy apps that use chop
+ * A tagger meant for use in groovy apps that use chop.
+ * Groovy's stacktraces are quite a bit more dynamic than java's, so we can't just
+ * 'know' which element in the stacktrace the log originated from. Instead we search
+ * for the first non-system callsite.
  */
 class GroovyDebugTagger implements Chop.Tagger {
   private static final List<String> SYSTEM_CALLSITES = [
@@ -20,15 +23,20 @@ class GroovyDebugTagger implements Chop.Tagger {
       "groovy.lang"
   ]
 
+  private final String CLASS_LINE_FORMAT = "%s:%d";
   private final Pattern ANONYMOUS_CLASS_PATTERN = Pattern.compile(/\$\d+$/);
   private final Pattern CLOSURE_PATTERN = Pattern.compile(/\$\_\w+\_closure\d+$/);
 
   @Override
   String createTag() {
-    String tag = new Throwable().stackTrace.find {!isSystemCallsite(it)}.className
+    StackTraceElement element = new Throwable().stackTrace.find {!isSystemCallsite(it)}
+    String tag = element.className
     tag = applyPattern(tag, ANONYMOUS_CLASS_PATTERN)
     tag = applyPattern(tag, CLOSURE_PATTERN)
-    return tag.substring(tag.lastIndexOf('.') + 1);
+    return String.format(
+        CLASS_LINE_FORMAT,
+        tag.substring(tag.lastIndexOf('.') + 1),
+        element.lineNumber)
   }
 
   private static boolean isSystemCallsite(StackTraceElement element) {

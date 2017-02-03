@@ -26,20 +26,12 @@ class TestGroovyDebugTaggerTest extends Specification {
     ChopTestUtil.digUpTree(mockTree)
   }
 
-  def "call from method"() {
-    when:
-    log("test message")
-
-    then:
-    1 * mockTree.chopLog(Chop.Level.E, "TestGroovyDebugTaggerTest", "test message")
-  }
-
   def "test called from method in diff file"() {
     when:
     GroovyTestUtil.logMessage("test message")
 
     then:
-    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil", "test message")
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil:11", "test message")
   }
 
   def "test called from closure in diff file"() {
@@ -47,7 +39,7 @@ class TestGroovyDebugTaggerTest extends Specification {
     GroovyTestUtil.getLogClosure("test message").call()
 
     then:
-    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil", "test message")
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil:16", "test message")
   }
 
   def "test called from runnable in diff file"() {
@@ -55,10 +47,8 @@ class TestGroovyDebugTaggerTest extends Specification {
     GroovyTestUtil.getLogRunnable("test message").run()
 
     then:
-    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil", "test message")
+    1 * mockTree.chopLog(Chop.Level.E, "GroovyTestUtil:24", "test message")
   }
 
-  private void log(String string) {
-    Chop.e(string)
-  }
+
 }

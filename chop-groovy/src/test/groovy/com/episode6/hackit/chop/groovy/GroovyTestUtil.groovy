@@ -3,7 +3,7 @@ package com.episode6.hackit.chop.groovy
 import com.episode6.hackit.chop.Chop
 
 /**
- *
+ * util method used by GroovyDebugTaggerTest
  */
 class GroovyTestUtil {
 
