@@ -40,7 +40,6 @@ class GroovyDebugTagger implements Chop.Tagger {
   }
 
   private static StackTraceElement findFirstNonSystemElement(Throwable t) {
-    println "stack trace has ${t.stackTrace.length} elements"
     // All the groovy stack traces I've seen have the appropriate line at least 19 entries down (and have ~90 entries)
     // I'm too much of a wuss to start that high up, so this fuzzy logic is meant to ensure we don't accidentally
     // skip the important line in smaller stack traces but hopefully cut down on the big-O of this method for larger
