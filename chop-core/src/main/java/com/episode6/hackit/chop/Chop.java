@@ -116,18 +116,27 @@ public final class Chop {
   }
 
   public static final class Defaults {
+
+    /**
+     * Creates a tag based on the className and line number where the line was called
+     */
     public static final Tagger TAGGER = new Tagger() {
 
+      private final String CLASS_LINE_FORMAT = "%s:%d";
       private final Pattern ANONYMOUS_CLASS_PATTERN = Pattern.compile("\\$\\d+$");
 
       @Override
       public String createTag() {
-        String tag = new Throwable().getStackTrace()[3].getClassName();
+        StackTraceElement element = new Throwable().getStackTrace()[3];
+        String tag = element.getClassName();
         Matcher m = ANONYMOUS_CLASS_PATTERN.matcher(tag);
         if (m.find()) {
           tag = m.replaceAll("");
         }
-        return tag.substring(tag.lastIndexOf('.') + 1);
+        return String.format(
+            CLASS_LINE_FORMAT,
+            tag.substring(tag.lastIndexOf('.') + 1),
+            element.getLineNumber());
       }
     };
 

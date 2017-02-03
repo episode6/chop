@@ -3,7 +3,7 @@ package com.episode6.hackit.chop.groovy
 import com.episode6.hackit.chop.Chop
 
 /**
- *
+ * util method used by GroovyDebugTaggerTest
  */
 class GroovyTestUtil {
 
@@ -21,6 +21,14 @@ class GroovyTestUtil {
     return new Runnable() {
       @Override
       void run() {
+        Chop.e(testMessage)
+      }
+    }
+  }
+
+  static Closure<Closure> getDoubleLogClosure(String testMessage) {
+    return {
+      return {
         Chop.e(testMessage)
       }
     }

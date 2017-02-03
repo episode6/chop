@@ -36,7 +36,7 @@ public class DefaultTaggerTest {
 
     Chop.d("Test Message");
 
-    verifyExpectedTag(expectedTag);
+    verifyExpectedTag(expectedTag + ":37");
   }
 
   @Test
@@ -51,7 +51,7 @@ public class DefaultTaggerTest {
       }
     }.run();
 
-    verifyExpectedTag(expectedTag);
+    verifyExpectedTag(expectedTag +":50");
   }
 
   @Test
@@ -61,7 +61,7 @@ public class DefaultTaggerTest {
 
     new InnerTestClass().printLog();
 
-    verifyExpectedTag(expectedTag);
+    verifyExpectedTag(expectedTag + ":85");
   }
 
   @Test
@@ -70,7 +70,7 @@ public class DefaultTaggerTest {
 
     Chop.withFormatter(Chop.Defaults.FORMATTER).d("Test Message");
 
-    verifyExpectedTag(expectedTag);
+    verifyExpectedTag(expectedTag + ":71");
   }
 
   private void verifyExpectedTag(String expectedTag) {

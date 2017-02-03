@@ -64,7 +64,7 @@ public class DifferentPackageTest {
 
     verify(mTree).chopLog(
         any(Chop.Level.class),
-        eq(expectedTag),
+        eq(expectedTag + ":63"),
         anyString());
   }
 
