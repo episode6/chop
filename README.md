@@ -104,9 +104,5 @@ public static final ChoppingToolsAdapter myChop = Chop.withTagger(myTagger)
 myChop.e("My custom formatted log message");
 ```
 
-## Also
-You may have noticed Chop is split into chop-core and chop-android. This means you can use chop in any java project. 
-Chop is also really useful for unit testing in android, since you can plant an StdOutDebugTree in your TestRunner and not only have an easy way to add logs to your tests, but also include logs posted by the code you're testing.
-
-##License
+## License
 MIT: https://github.com/episode6/chop/blob/master/LICENSE
