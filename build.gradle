@@ -6,7 +6,7 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.2.3'
-    classpath 'com.episode6.hackit.deployable:deployable:0.1'
+    classpath 'com.episode6.hackit.deployable:deployable:0.1.2'
   }
 }
 
@@ -16,5 +16,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.chop"
-  version = "0.1.7.2"
+  version = "0.1.8"
 }

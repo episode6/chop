@@ -3,11 +3,17 @@ Chop
 
 An easy and efficient logging library for Java & Android (inspired by [JakeWharton's Timber](https://github.com/JakeWharton/timber))
 
-##How do I set it up?
-- Add maven/gradle dependency on `com.episode6.hackit.chop:chop-core:0.1.7.2`
-- If you're building an android project, also add `com.episode6.hackit.chop:chop-android:0.1.7.2`
+## How do I set it up?
+Add a maven/gradle dependency on the chop-core module:
+`com.episode6.hackit.chop:chop-core:0.1.8`
 
-##How do I use it?
+Optionally, add a dependency on one of the specialized chop modules
+- `chop-android`
+  - Provides the `AndroidDebugTree` that spits out logs to the appropriate android `Log.*()` method
+- `chop-groovy`
+  - Provides the `GroovyDebugTagger` that should replace the default Tagger when chopping from a groovy project or library.
+
+## How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)
 
 Plant a `Chop.Tree` as early as possible in (the debug build of) your application...
@@ -43,13 +49,15 @@ Chop.withTag("CUSTOMTAG").i("My Log With Custom Tag");
 Chop.withTag(MyClass.class).w("My Class-Tagged Log");
 ```
 
-##What makes it Special?
+By default, your log messages will be tagged with the name of the class from which they originated, along with the line number where the log is fired.
+
+## What makes it Special?
 Nothing. It just fixes some things I didn't like about Timber (which is still great btw).
 
-##What does it "fix"?
+## What does it "fix"?
 It has a better name.
 
-##OK I'm sold! But what else?
+## OK I'm sold! But what else?
 Most importantly it makes Trees simpler. In Timber a Tree is responsible for doing absolutely everything, from creating tags, to formatting messages, to printing the logs. A Timber tree also must implement this for all 10 log methods (2 for each log level). This was too much copy-pasting for my tastes.
 
 The `Chop.Tree` interface has only two methods to implement...
@@ -88,11 +96,13 @@ Chop.withTagger(myTagger)
 Chop.withTagger(myTagger)
     .andFormatter(myFormatter)
     .e("My Log Message");
+
+// Create you're own adapter and use it throughout your library
+public static final ChoppingToolsAdapter myChop = Chop.withTagger(myTagger)
+    .andFormatter(myFormatter);
+
+myChop.e("My custom formatted log message");
 ```
 
-##Also
-You may have noticed Chop is split into chop-core and chop-android. This means you can use chop in any java project. 
-Chop is also really useful for unit testing in android, since you can plant an StdOutDebugTree in your TestRunner and not only have an easy way to add logs to your tests, but also include logs posted by the code you're testing.
-
-##License
+## License
 MIT: https://github.com/episode6/chop/blob/master/LICENSE

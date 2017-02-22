@@ -59,32 +59,20 @@ public class SettableTaggerTest {
         anyString());
   }
 
-  @Test
+  @Test(expected = ClassCastException.class)
   public void testImpossibleDefault() {
     Chop.ChoppingToolsAdapter adapter = Chop.withTag("testTag");
 
-    try {
-      Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
-      defaultableAdapter.byDefault();
-    } catch (ClassCastException e) {
-      // Success
-      return;
-    }
-    fail("Expected a ClassCastException");
+    Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
+    defaultableAdapter.byDefault();
   }
 
-  @Test
+  @Test(expected = ClassCastException.class)
   public void testImpossibleDefaultClass() {
     Class<?> tag = SettableTaggerTest.class;
     Chop.ChoppingToolsAdapter adapter = Chop.withTag(tag);
 
-    try {
-      Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
-      defaultableAdapter.byDefault();
-    } catch (ClassCastException e) {
-      // Success
-      return;
-    }
-    fail("Expected a ClassCastException");
+    Chop.DefaultableChoppingToolsAdapter defaultableAdapter = (Chop.DefaultableChoppingToolsAdapter)adapter;
+    defaultableAdapter.byDefault();
   }
 }
