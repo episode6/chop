@@ -6,8 +6,8 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.3.0'
-    classpath 'com.episode6.hackit.deployable:deployable:0.1.2'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.1'
+    classpath 'com.episode6.hackit.deployable:deployable:0.1.5'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.3'
   }
 }
 
