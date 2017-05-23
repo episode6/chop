@@ -3,6 +3,7 @@
 node {
   stage('checkout') {
     checkout scm
+    sh 'git submodule update --init'
   }
 
   def gradleRunner
@@ -10,10 +11,11 @@ node {
     gradleRunner = fileLoader.fromGit(
         'gradle/GradleRunner',
         'git@github.com:episode6/jenkins-pipelines.git',
-        'v0.0.3',
+        'v0.0.5',
         null,
         '')
   }
 
   gradleRunner.buildAndTest()
+  gradleRunner.maybeDeploy()
 }
