@@ -5,7 +5,7 @@ An easy and efficient logging library for Java & Android (inspired by [JakeWhart
 
 ## How do I set it up?
 Add a maven/gradle dependency on the chop-core module:
-`com.episode6.hackit.chop:chop-core:0.1.8.1-SNAPSHOT`
+`com.episode6.hackit.chop:chop-core:0.1.8.1`
 
 Optionally, add a dependency on one of the specialized chop modules
 - `chop-android`
