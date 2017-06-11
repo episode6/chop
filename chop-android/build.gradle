@@ -6,8 +6,8 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "26.0.0"
+  compileSdkVersion gdmcVersion('android.compilesdk') as Integer
+  buildToolsVersion gdmcVersion('android.buildtools')
 
   buildTypes {
     release {
