@@ -3,15 +3,23 @@ Chop
 
 An easy and efficient logging library for Java & Android (inspired by [JakeWharton's Timber](https://github.com/JakeWharton/timber))
 
-## How do I set it up?
-Add a maven/gradle dependency on the chop-core module:
-`com.episode6.hackit.chop:chop-core:0.1.8.1`
+## Installation?
+```groovy
+buildscript {
+  repositories { jcenter() }
+  dependencies {
+    compile 'com.episode6.hackit.chop:chop-core:0.1.9'
+  }
+}
+```
 
 Optionally, add a dependency on one of the specialized chop modules
 - `chop-android`
   - Provides the `AndroidDebugTree` that spits out logs to the appropriate android `Log.*()` method
 - `chop-groovy`
   - Provides the `GroovyDebugTagger` that should replace the default Tagger when chopping from a groovy project or library.
+- `chop-junit`
+  - Provides the `ChopRule` TestRule to add logging to your unit tests.
 
 ## How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)

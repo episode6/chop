@@ -5,10 +5,15 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.2'
+    classpath 'com.android.tools.build:gradle:2.3.3'
     classpath 'com.episode6.hackit.deployable:deployable:0.1.5'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.4'
+    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.6'
   }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "3.3"
+  distributionType = "all"
 }
 
 allprojects {
@@ -17,5 +22,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.chop"
-  version = "0.1.8.1"
+  version = "0.1.9"
 }
