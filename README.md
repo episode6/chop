@@ -3,9 +3,15 @@ Chop
 
 An easy and efficient logging library for Java & Android (inspired by [JakeWharton's Timber](https://github.com/JakeWharton/timber))
 
-## How do I set it up?
-Add a maven/gradle dependency on the chop-core module:
-`com.episode6.hackit.chop:chop-core:0.1.8.2-SNAPSHOT`
+## Installation?
+```groovy
+buildscript {
+  repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
+  dependencies {
+    compile 'com.episode6.hackit.chop:chop-core:0.1.9-SNAPSHOT'
+  }
+}
+```
 
 Optionally, add a dependency on one of the specialized chop modules
 - `chop-android`
