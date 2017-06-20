@@ -6,7 +6,7 @@ An easy and efficient logging library for Java & Android (inspired by [JakeWhart
 ## Installation?
 ```groovy
 buildscript {
-  repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
+  repositories { jcenter() }
   dependencies {
     compile 'com.episode6.hackit.chop:chop-core:0.1.9'
   }
