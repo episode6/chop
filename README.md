@@ -18,6 +18,8 @@ Optionally, add a dependency on one of the specialized chop modules
   - Provides the `AndroidDebugTree` that spits out logs to the appropriate android `Log.*()` method
 - `chop-groovy`
   - Provides the `GroovyDebugTagger` that should replace the default Tagger when chopping from a groovy project or library.
+- `chop-junit`
+  - Provides the `ChopRule` TestRule to add logging to your unit tests.
 
 ## How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)
