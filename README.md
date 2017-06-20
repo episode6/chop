@@ -8,7 +8,7 @@ An easy and efficient logging library for Java & Android (inspired by [JakeWhart
 buildscript {
   repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots/" } }
   dependencies {
-    compile 'com.episode6.hackit.chop:chop-core:0.1.9-SNAPSHOT'
+    compile 'com.episode6.hackit.chop:chop-core:0.1.9'
   }
 }
 ```
