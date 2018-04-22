@@ -6,7 +6,7 @@ buildscript {
     google()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.0'
+    classpath 'com.android.tools.build:gradle:3.1.1'
     classpath 'com.episode6.hackit.deployable:deployable:0.1.11'
     classpath 'com.episode6.hackit.gdmc:gdmc:0.1.8'
   }
