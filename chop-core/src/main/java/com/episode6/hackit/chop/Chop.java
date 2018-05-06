@@ -2,6 +2,7 @@ package com.episode6.hackit.chop;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,12 +17,13 @@ public final class Chop {
    * A tree can support some, all or no Levels of log (although planting a tree that supports no
    * logs seems pointless. {@link #chopLog(Chop.Level, String, String)} will only be called if the Tree
    * returns true in {@link #supportsLevel(Chop.Level)} for the given level.
-   *
+   * <p>
    * The name Tree comes from Timber's analogy. I'm not sure it fits anymore and might change it
    * (since the responsibility of Trees in this case is a bit different).
    */
   public interface Tree {
     boolean supportsLevel(Level level);
+
     void chopLog(Level level, String tag, String message);
   }
 
@@ -39,6 +41,7 @@ public final class Chop {
    */
   public interface Formatter {
     String formatLog(String message, Object... args);
+
     String formatThrowable(Throwable throwable);
   }
 
@@ -134,6 +137,7 @@ public final class Chop {
           tag = m.replaceAll("");
         }
         return String.format(
+            Locale.US,
             CLASS_LINE_FORMAT,
             tag.substring(tag.lastIndexOf('.') + 1),
             element.getLineNumber());
@@ -253,11 +257,12 @@ public final class Chop {
     /**
      * Internal helper class to cast a this ChoppingToolsAdapter
      * as one of its subclasses
+     *
      * @return casted instance of this adapter
      */
     @SuppressWarnings("unchecked")
     <T extends ChoppingToolsAdapter> T cast(Class<T> clazz) {
-      return (T)this;
+      return (T) this;
     }
   }
 
