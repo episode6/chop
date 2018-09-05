@@ -1,1 +1,1 @@
-include ':chop-core', ':chop-android', ':chop-groovy', ':chop-junit', ':chop-sf4j'
+include ':chop-core', ':chop-android', ':chop-groovy', ':chop-junit', ':chop-slf4j'
