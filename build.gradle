@@ -13,5 +13,5 @@ allprojects {
   }
 
   group = "com.episode6.hackit.chop"
-  version = "0.1.10-SNAPSHOT"
+  version = "0.1.11-SNAPSHOT"
 }
