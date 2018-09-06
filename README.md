@@ -8,7 +8,7 @@ An easy and efficient logging library for Java & Android (inspired by [JakeWhart
 buildscript {
   repositories { jcenter() }
   dependencies {
-    compile 'com.episode6.hackit.chop:chop-core:0.1.9'
+    compile 'com.episode6.hackit.chop:chop-core:0.1.10'
   }
 }
 ```
@@ -20,6 +20,8 @@ Optionally, add a dependency on one of the specialized chop modules
   - Provides the `GroovyDebugTagger` that should replace the default Tagger when chopping from a groovy project or library.
 - `chop-junit`
   - Provides the `ChopRule` TestRule to add logging to your unit tests.
+- `chop-slf4j`
+  - Provides an `Slf4jTree` as a bridge to slf4j
 
 ## How do I use it?
 This should feel very familiar if you've used [Timber](https://github.com/JakeWharton/timber)

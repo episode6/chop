@@ -1,12 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'com.episode6.hackit.deployable.jar'
-apply plugin: 'com.episode6.hackit.gdmc'
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+apply plugin: JavaLib
 
 dependencies {
-  compile('com.google.code.findbugs:jsr305')
-  testCompile('junit:junit')
-  testCompile('org.mockito:mockito-core')
+  api('com.google.code.findbugs:jsr305')
+  testImplementation('junit:junit')
+  testImplementation('org.mockito:mockito-core')
 }

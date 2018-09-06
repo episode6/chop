@@ -1,26 +1,17 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// dokka's dependencies fail to resolve without this
+buildscript { repositories { jcenter() } }
 
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.3'
-    classpath 'com.episode6.hackit.deployable:deployable:0.1.5'
-    classpath 'com.episode6.hackit.gdmc:gdmc:0.1.6'
-  }
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = "3.3"
+wrapper {
+  gradleVersion = "4.9"
   distributionType = "all"
 }
 
 allprojects {
   repositories {
     jcenter()
+    google()
   }
 
   group = "com.episode6.hackit.chop"
-  version = "0.1.9"
+  version = "0.1.10"
 }
