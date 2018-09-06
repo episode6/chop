@@ -13,11 +13,10 @@ repositories {
 apply plugin: 'groovy'
 apply plugin: 'com.episode6.hackit.gdmc'
 
-// compile deps act as buildscript classpath deps for the main project
 dependencies {
-  compile 'com.episode6.hackit.gdmc:gdmc'
-  compile 'com.android.tools.build:gradle'
-  compile 'com.episode6.hackit.deployable:deployable'
-  compile 'org.jetbrains.kotlin:kotlin-gradle-plugin'
-  compile 'org.jetbrains.dokka:dokka-gradle-plugin'
+  runtimeClasspath 'com.episode6.hackit.gdmc:gdmc'
+  runtimeClasspath 'com.android.tools.build:gradle'
+  runtimeClasspath 'com.episode6.hackit.deployable:deployable'
+  runtimeClasspath 'org.jetbrains.kotlin:kotlin-gradle-plugin'
+  runtimeClasspath 'org.jetbrains.dokka:dokka-gradle-plugin'
 }
